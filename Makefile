@@ -1,9 +1,9 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = riscv.h
+DEPS = include/*.h
 OBJ = main.o riscv.o
 
-%.o: %.c $(DEPS)
+%.o: src/%.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 main: $(OBJ)
