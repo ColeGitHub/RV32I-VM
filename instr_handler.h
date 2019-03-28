@@ -28,7 +28,10 @@ enum // OP Codes
 void (*opcode_lookup[29])(RISCVM*, uint32_t);
 
 // Function Declarations
-void init_lookup(void);
+void init_opcode_lookup(void);
 void handle(RISCVM* vm, uint32_t instr);
-
+void lui(RISCVM* vm, uint32_t instr);
+void auipc(RISCVM* vm, uint32_t instr);
+void jal(RISCVM* vm, uint32_t instr);
+void jalr(RISCVM* vm, uint32_t instr);
 #endif

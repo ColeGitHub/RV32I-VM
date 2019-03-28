@@ -45,13 +45,12 @@ enum // Registers
     x29,    // "
     x30,    // "
     x31,    // "
+    xPC,    // Program Counter
     REGISTER_COUNT
 };
 
 typedef struct RISCVM
 {
-/*    uint32_t registers[REGISTER_COUNT];
-    uint8_t memory[MEM_SIZE];*/
     uint32_t* registers;
     uint8_t* memory;
     

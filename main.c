@@ -7,8 +7,10 @@
 #include <fcntl.h>
 
 #include "riscv.h"
+#include "instr_handler.h"
 
 
+// BRANCH LOOKUP TEST
 int main()
 {
     // Initialize Virtual Machine Memory
@@ -23,6 +25,7 @@ int main()
         printf("Memory allocated.\n");
     }
    
+      
     // Free memory and exit
     free_vm(vm_struct);
     return 0;

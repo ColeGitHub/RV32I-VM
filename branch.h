@@ -13,6 +13,9 @@ enum // branch funct3 codes
     BGEU = 7
 };
 
+void (*branch_lookup[8])(RISCVM*, uint32_t);
+
+void init_branch_lookup(void);
 void branch_handle(RISCVM* vm, uint32_t instr);
 void beq(RISCVM* vm, uint32_t instr);
 void bne(RISCVM* vm, uint32_t instr);
