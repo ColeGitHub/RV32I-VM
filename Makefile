@@ -1,7 +1,8 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = *.h
-OBJ = main.o riscv.o
+SOURCES = $(wildcard *.c)
+DEPS = $(wildcard *.h)
+OBJ = $(SOURCES:.c=.o) 
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
