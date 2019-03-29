@@ -1,13 +1,14 @@
 #ifndef INSTR_HANDLER_H
 #define INSTR_HANDLER_H
 
+#include <stdio.h>
+
 #include "riscv.h"
 #include "load_store.h"
 #include "branch.h"
-#include "arithmetic.h"
+#include "arith.h"
 #include "fence.h"
 #include "riscv_sys.h"
-#include "jump_utype.h"
 
 enum // OP Codes
 {
@@ -34,4 +35,5 @@ void lui(RISCVM* vm, uint32_t instr);
 void auipc(RISCVM* vm, uint32_t instr);
 void jal(RISCVM* vm, uint32_t instr);
 void jalr(RISCVM* vm, uint32_t instr);
+void illegal_opcode(RISCVM* vm, uint32_t instr);
 #endif
