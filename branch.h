@@ -17,11 +17,13 @@ void (*branch_lookup[8])(RISCVM*, uint32_t);
 
 void init_branch_lookup(void);
 void branch_handle(RISCVM* vm, uint32_t instr);
+
 void beq(RISCVM* vm, uint32_t instr);
 void bne(RISCVM* vm, uint32_t instr);
 void blt(RISCVM* vm, uint32_t instr);
 void bge(RISCVM* vm, uint32_t instr);
 void bltu(RISCVM* vm, uint32_t instr);
 void bgeu(RISCVM* vm, uint32_t instr);
+void illegal_branch_funct3(RISCVM* vm, uint32_t instr);
 
 #endif
