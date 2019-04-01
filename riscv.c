@@ -27,7 +27,7 @@ uint32_t sign_ext(uint32_t x, int bit_count)
     return x;
 }
 
-void mem_read_word( RISCVM* vm, int address, int reg )
+int mem_read_word( RISCVM* vm, int address, int reg )
 {
     // Loads 32 bit word into register "reg"
     // Takes advantage of conversion of four
@@ -39,16 +39,18 @@ void mem_read_word( RISCVM* vm, int address, int reg )
     
     if ( (address + 3) > (MEM_SIZE - 1)) {
         printf("ERROR: invalid memory access during mem_read_word()"); 
-        printf(", continuing without writing to x%d\n", reg);
+        printf(", continuing without reading from x%d\n", reg);
+        return 1;
     } else {
         val_ptr = (uint32_t*) (vm->memory + address);
         val = *val_ptr; 
         vm->registers[reg] = val;
+        return 0;
     }
 
 }
 
-void mem_read_half_word( RISCVM* vm, uint32_t address, int reg, int sign_flag )
+int mem_read_half_word( RISCVM* vm, uint32_t address, int reg, int sign_flag )
 {
     // Loads 16 bit "half world" into the lower 16 bits
     // of register "reg"
@@ -57,7 +59,8 @@ void mem_read_half_word( RISCVM* vm, uint32_t address, int reg, int sign_flag )
 
     if ( (address + 1) > (MEM_SIZE - 1)) {
         printf("ERROR: invalid memory access during mem_read_half_word()"); 
-        printf(", continuing without writing to x%d\n", reg);
+        printf(", continuing without reading from x%d\n", reg);
+        return 1;
     } else {
         val_ptr = (uint32_t*) (vm->memory + address);
         val = *val_ptr & 0x0000FFFF;
@@ -67,10 +70,11 @@ void mem_read_half_word( RISCVM* vm, uint32_t address, int reg, int sign_flag )
         } 
 
         vm->registers[reg] = val;
+        return 0;
     }        
 }
 
-void mem_read_byte( RISCVM* vm, uint32_t address, int reg, int sign_flag )
+int mem_read_byte( RISCVM* vm, uint32_t address, int reg, int sign_flag )
 {
     // Loads 8 bits into the lower 8 bits
     // of register "reg"
@@ -78,7 +82,8 @@ void mem_read_byte( RISCVM* vm, uint32_t address, int reg, int sign_flag )
 
     if (address > (MEM_SIZE - 1)) {
         printf("ERROR: invalid memory access during mem_read_byte()"); 
-        printf(", continuing without writing to x%d\n", reg);
+        printf(", continuing without reading from x%d\n", reg);
+        return 1;
     } else {
         val &= (uint32_t) vm->memory[address];
 
@@ -87,11 +92,13 @@ void mem_read_byte( RISCVM* vm, uint32_t address, int reg, int sign_flag )
         }
 
         vm->registers[reg] = val;
+
+        return 0;
     }
 }
 
 
-void mem_write_word( RISCVM* vm, int address, int reg )
+int mem_write_word( RISCVM* vm, int address, int reg )
 {
     // Writes a 32 bit word to four consecutive addresses
     // in memory
@@ -102,16 +109,18 @@ void mem_write_word( RISCVM* vm, int address, int reg )
     if ( (address + 3) > (MEM_SIZE - 1) ){
         printf("ERROR: invalid memory access during mem_write_word()"); 
         printf(", continuing without writing to memory\n");
+        return 1;
     } else {
         for (int i = 0; i < 4; i++) {
             offset = (uint32_t) i;     
             address_byte = (uint8_t) ((word >> (i * 8)) & 0xFF);
             vm->memory[address + offset] = address_byte;
         } 
+        return 0;
     }
 }
 
-void mem_write_half_word( RISCVM* vm, uint32_t address, int reg )
+int mem_write_half_word( RISCVM* vm, uint32_t address, int reg )
 {
     // Writes half a word to two consecutive addresses in memory
     uint8_t address_byte;
@@ -120,16 +129,18 @@ void mem_write_half_word( RISCVM* vm, uint32_t address, int reg )
     if ( (address + 1) > (MEM_SIZE - 1) ){
         printf("ERROR: invalid memory access during mem_write_half_word()"); 
         printf(", continuing without writing to memory\n");
+        return 1;
     } else {
         for (int i = 0; i < 2; i++) {
             offset = (uint32_t) i;     
             address_byte = (uint8_t) (word >> (i * 8)) & 0xFF;
             vm->memory[address + offset] = address_byte;
         }
+        return 0;
     }
 }
 
-void mem_write_byte( RISCVM* vm, uint32_t address, int reg )
+int mem_write_byte( RISCVM* vm, uint32_t address, int reg )
 {
     // Writes a byte to one address in memory
     uint32_t word = vm->registers[reg];
@@ -137,12 +148,14 @@ void mem_write_byte( RISCVM* vm, uint32_t address, int reg )
     if ( address > (MEM_SIZE - 1) ){
         printf("ERROR: invalid memory access during mem_write_byte()"); 
         printf(", continuing without writing to memory\n");
+        return 1;
     } else {
         vm->memory[address] = (uint8_t) (word & 0xFF);
+        return 0;
     }
 }
 
-void reg_write(RISCVM* vm, uint32_t value, int reg)
+void reg_write(RISCVM* vm, int reg, uint32_t value)
 {
     if (reg > 0 && reg < REGISTER_COUNT) {
         vm->registers[reg] = value;

@@ -61,12 +61,12 @@ RISCVM init_vm(void);
 void free_vm(RISCVM vm);
 uint32_t sign_ext(uint32_t x, int bit_count);
 
-void mem_read_word( RISCVM* vm, int address, int reg );
-void mem_read_half_word( RISCVM* vm, uint32_t address, int reg, int sign_flag );
-void mem_read_byte( RISCVM* vm, uint32_t address, int reg, int sign_flag );
-void mem_write_word( RISCVM* vm, int address, int reg );
-void mem_write_half_word( RISCVM* vm, uint32_t address, int reg );
-void mem_write_byte( RISCVM* vm, uint32_t address, int reg );
+int mem_read_word( RISCVM* vm, int address, int reg );
+int mem_read_half_word( RISCVM* vm, uint32_t address, int reg, int sign_flag );
+int mem_read_byte( RISCVM* vm, uint32_t address, int reg, int sign_flag );
+int mem_write_word( RISCVM* vm, int address, int reg );
+int mem_write_half_word( RISCVM* vm, uint32_t address, int reg );
+int mem_write_byte( RISCVM* vm, uint32_t address, int reg );
 
 void reg_write(RISCVM* vm, uint32_t value, int reg);
 uint32_t reg_read(RISCVM* vm, int reg);
