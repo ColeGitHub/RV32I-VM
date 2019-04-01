@@ -15,70 +15,77 @@ void init_ls_lookup()
     store_lookup[SW] = sw;
 }
 
-void load_handle(RISCVM* vm, uint32_t instr)
+int load_handle(RISCVM* vm, uint32_t instr)
 {
     uint8_t funct3 = (instr >> 12) & 0x7;
     if (funct3 > 5) {
-        illegal_mem_funct3(vm, instr);
+        return illegal_mem_funct3(vm, instr);
     } else {
-        (load_lookup[funct3])(vm, instr);
+        return (load_lookup[funct3])(vm, instr);
     }
 
 }
 
-void store_handle(RISCVM* vm, uint32_t instr)
+int store_handle(RISCVM* vm, uint32_t instr)
 {
     uint8_t funct3 = (instr >> 12) & 0x7;
     if (funct3 > 5) {
-        illegal_mem_funct3(vm, instr);
+        return illegal_mem_funct3(vm, instr);
     } else {
-        (store_lookup[funct3])(vm, instr);
+        return (store_lookup[funct3])(vm, instr);
     }
 }
 
-void lb(RISCVM* vm, uint32_t instr)
+int lb(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at LB\n");    
+    return 0;
 }
 
-void lh(RISCVM* vm, uint32_t instr)
+int lh(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at LH\n");    
+    return 0;
 }
 
-void lw(RISCVM* vm, uint32_t instr)
+int lw(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at LW\n");    
+    return 0;
 }
 
-void lbu(RISCVM* vm, uint32_t instr)
+int lbu(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at LBU\n");    
+    return 0;
 }
 
-void lhu(RISCVM* vm, uint32_t instr)
+int lhu(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at LHU\n");
+    return 0;
 }
 
-void sb(RISCVM* vm, uint32_t instr)
+int sb(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at SB\n");
+    return 0;
 }
 
-void sh(RISCVM* vm, uint32_t instr)
+int sh(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at SH\n");
+    return 0;
 }
 
-void sw(RISCVM* vm, uint32_t instr)
+int sw(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at SW\n");
+    return 0;
 }
 
-void illegal_mem_funct3(RISCVM* vm, uint32_t instr)
+int illegal_mem_funct3(RISCVM* vm, uint32_t instr)
 {
    printf("Error: illegal load/store funct3 code\nPC: %x\nInstruction: %x\n", vm->registers[xPC], instr);
-   free_vm(*vm);
-   vm = NULL;
+   return 1;
 }

@@ -15,7 +15,7 @@ void init_arith_lookup()
     arith_lookup[AND] = _and;
 }
 
-void arith_handle(RISCVM* vm, uint32_t instr)
+int arith_handle(RISCVM* vm, uint32_t instr)
 {
     // Get bits [14:12] to get funct3 code,
     // use code in lookup table
@@ -23,57 +23,64 @@ void arith_handle(RISCVM* vm, uint32_t instr)
     uint8_t imm_flag = (instr >> 5) | 0x0;
 
     if (funct3 > 7) {
-        illegal_arith_funct3(vm, instr);
+        return illegal_arith_funct3(vm, instr);
     } else {
-        (arith_lookup[funct3])(vm, instr, imm_flag);
+        return (arith_lookup[funct3])(vm, instr, imm_flag);
     }
 }
 
-void add(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
+int add(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
 {
     // Remember to include condition for r-type SUB
     printf("Arrived at ADD\n");
+    return 0;
 }
 
-void sll(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
+int sll(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
 {
     printf("Arrived at SLL\n");
+    return 0;
 }
 
-void slt(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
+int slt(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
 {
     printf("Arrived at SLT\n");
+    return 0;
 }
 
-void sltu(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
+int sltu(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
 {
     printf("Arrived at SLTU\n");
+    return 0;
 }
 
-void _xor(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
+int _xor(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
 {
     printf("Arrived at XOR\n");
+    return 0;
 }
 
-void sr(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
+int sr(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
 {
     // Remember to add functionality for logical/arithmetic shift
     printf("Arrived at SR\n");
+    return 0;
 }
 
-void _or(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
+int _or(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
 {
     printf("Arrived at OR\n");
+    return 0;
 }
 
-void _and(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
+int _and(RISCVM* vm, uint32_t instr, uint8_t imm_flag)
 {
     printf("Arrived at AND\n");
+    return 0;
 }
 
-void illegal_arith_funct3(RISCVM* vm, uint32_t instr)
+int illegal_arith_funct3(RISCVM* vm, uint32_t instr)
 {
    printf("Error: illegal arith funct3 code\nPC: %x\nInstruction: %x\n", vm->registers[xPC], instr);
-   free_vm(*vm);
-   vm = NULL;
+   return 1;
 }

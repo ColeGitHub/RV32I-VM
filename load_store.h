@@ -23,22 +23,23 @@ enum // Store funct3 codes
 };
 
 // Funct3 Lookup tables
-void (*load_lookup[6])(RISCVM*, uint32_t);
-void (*store_lookup[3])(RISCVM*, uint32_t);
+int (*load_lookup[6])(RISCVM*, uint32_t);
+int (*store_lookup[3])(RISCVM*, uint32_t);
 
 // Init and Handle
 void init_ls_lookup(void);
-void load_handle(RISCVM* vm, uint32_t instr);
-void store_handle(RISCVM* vm, uint32_t instr);
+int load_handle(RISCVM* vm, uint32_t instr);
+int store_handle(RISCVM* vm, uint32_t instr);
 
 // Load/Store Ops
-void lb(RISCVM* vm, uint32_t instr);
-void lh(RISCVM* vm, uint32_t instr);
-void lw(RISCVM* vm, uint32_t instr);
-void lbu(RISCVM* vm, uint32_t instr);
-void lhu(RISCVM* vm, uint32_t instr);
-void sb(RISCVM* vm, uint32_t instr);
-void sh(RISCVM* vm, uint32_t instr);
-void sw(RISCVM* vm, uint32_t instr);
-void illegal_mem_funct3(RISCVM* vm, uint32_t instr);
+int lb(RISCVM* vm, uint32_t instr);
+int lh(RISCVM* vm, uint32_t instr);
+int lw(RISCVM* vm, uint32_t instr);
+int lbu(RISCVM* vm, uint32_t instr);
+int lhu(RISCVM* vm, uint32_t instr);
+int sb(RISCVM* vm, uint32_t instr);
+int sh(RISCVM* vm, uint32_t instr);
+int sw(RISCVM* vm, uint32_t instr);
+int illegal_mem_funct3(RISCVM* vm, uint32_t instr);
+
 #endif

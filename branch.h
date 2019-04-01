@@ -13,17 +13,17 @@ enum // branch funct3 codes
     BGEU = 7
 };
 
-void (*branch_lookup[8])(RISCVM*, uint32_t);
+int (*branch_lookup[8])(RISCVM*, uint32_t);
 
 void init_branch_lookup(void);
-void branch_handle(RISCVM* vm, uint32_t instr);
+int branch_handle(RISCVM* vm, uint32_t instr);
 
-void beq(RISCVM* vm, uint32_t instr);
-void bne(RISCVM* vm, uint32_t instr);
-void blt(RISCVM* vm, uint32_t instr);
-void bge(RISCVM* vm, uint32_t instr);
-void bltu(RISCVM* vm, uint32_t instr);
-void bgeu(RISCVM* vm, uint32_t instr);
-void illegal_branch_funct3(RISCVM* vm, uint32_t instr);
+int beq(RISCVM* vm, uint32_t instr);
+int bne(RISCVM* vm, uint32_t instr);
+int blt(RISCVM* vm, uint32_t instr);
+int bge(RISCVM* vm, uint32_t instr);
+int bltu(RISCVM* vm, uint32_t instr);
+int bgeu(RISCVM* vm, uint32_t instr);
+int illegal_branch_funct3(RISCVM* vm, uint32_t instr);
 
 #endif

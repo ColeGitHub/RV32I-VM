@@ -15,53 +15,59 @@ void init_sys_lookup()
     sys_lookup[4] = illegal_sys_funct3;
 }
 
-void sys_handle(RISCVM* vm, uint32_t instr)
+int sys_handle(RISCVM* vm, uint32_t instr)
 {
     // Get bits [14:12] to get funct3 code,
     // use code in lookup table
     uint8_t funct3 = (instr >> 12) & 0x7;
     if (funct3 > 7) {
-        illegal_sys_funct3(vm, instr);
+        return illegal_sys_funct3(vm, instr);
     } else {
-        (sys_lookup[funct3])(vm, instr);
+        return (sys_lookup[funct3])(vm, instr);
     }
 }
 
-void e_instr(RISCVM* vm, uint32_t instr)
+int e_instr(RISCVM* vm, uint32_t instr)
 {
     // Add functionality for ecall/ebreak
     printf("Arrived at E Instruction\n");
+    return 0;
 }
 
-void csrrw(RISCVM* vm, uint32_t instr)
+int csrrw(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at csrrw\n");
+    return 0;
 }
 
-void csrrs(RISCVM* vm, uint32_t instr)
+int csrrs(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at csrrs\n");
+    return 0;
 }
-void csrrc(RISCVM* vm, uint32_t instr)
+int csrrc(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at csrrc\n");
+    return 0;
 }
-void csrrwi(RISCVM* vm, uint32_t instr)
+int csrrwi(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at csrrwi\n");
+    return 0;
 }
-void csrrsi(RISCVM* vm, uint32_t instr)
+int csrrsi(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at csrrsi\n");
+    return 0;
 }
-void csrrci(RISCVM* vm, uint32_t instr)
+int csrrci(RISCVM* vm, uint32_t instr)
 {
     printf("Arrived at csrrci\n");
+    return 0;
 }
 
-void illegal_sys_funct3(RISCVM* vm, uint32_t instr)
+int illegal_sys_funct3(RISCVM* vm, uint32_t instr)
 {
    printf("Error: illegal sys funct3 code\nPC: %x\nInstruction: %x\n", vm->registers[xPC], instr);
-   free_vm(*vm);
-   vm = NULL;
+   return 1;
 }

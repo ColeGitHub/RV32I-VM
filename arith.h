@@ -17,21 +17,21 @@ enum // arithmetic funct3 codes
     AND = 7
 };
 
-void (*arith_lookup[8])(RISCVM*, uint32_t, uint8_t);
+int (*arith_lookup[8])(RISCVM*, uint32_t, uint8_t);
 
 void init_arith_lookup(void);
-void arith_handle(RISCVM* vm, uint32_t instr);
+int arith_handle(RISCVM* vm, uint32_t instr);
 
-void add(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
-void sll(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
-void slt(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
-void sltu(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
-void _xor(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
-void sr(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
-void _or(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
-void _and(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
+int add(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
+int sll(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
+int slt(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
+int sltu(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
+int _xor(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
+int sr(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
+int _or(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
+int _and(RISCVM* vm, uint32_t instr, uint8_t imm_flag);
 
-void illegal_arith_funct3(RISCVM* vm, uint32_t instr);
+int illegal_arith_funct3(RISCVM* vm, uint32_t instr);
 
 
 #endif

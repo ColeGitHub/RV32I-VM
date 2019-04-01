@@ -26,14 +26,14 @@ enum // OP Codes
 };
 
 // Lookup Table for OP Codes
-void (*opcode_lookup[29])(RISCVM*, uint32_t);
+int (*opcode_lookup[29])(RISCVM*, uint32_t);
 
 // Function Declarations
 void init_opcode_lookup(void);
-void handle(RISCVM* vm, uint32_t instr);
-void lui(RISCVM* vm, uint32_t instr);
-void auipc(RISCVM* vm, uint32_t instr);
-void jal(RISCVM* vm, uint32_t instr);
-void jalr(RISCVM* vm, uint32_t instr);
-void illegal_opcode(RISCVM* vm, uint32_t instr);
+int handle(RISCVM* vm, uint32_t instr);
+int lui(RISCVM* vm, uint32_t instr);
+int auipc(RISCVM* vm, uint32_t instr);
+int jal(RISCVM* vm, uint32_t instr);
+int jalr(RISCVM* vm, uint32_t instr);
+int illegal_opcode(RISCVM* vm, uint32_t instr);
 #endif

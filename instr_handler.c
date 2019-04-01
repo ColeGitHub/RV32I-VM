@@ -33,39 +33,46 @@ void init_opcode_lookup()
     init_sys_lookup();
 }
 
-void handle(RISCVM* vm, uint32_t instr)
+int handle(RISCVM* vm, uint32_t instr)
 {
-    uint8_t opcode = (instr >> 2) & 0x1F;
-    if (opcode > 28) {
-        illegal_opcode(vm, instr);
+    uint8_t opcode = instr & 0x7F;
+   
+    // Boundary check of opcode before sending to 
+    // lookup table
+    if (opcode < 3 || (opcode >> 2) > 28) { 
+        return illegal_opcode(vm, instr);
     } else {
-        (opcode_lookup[opcode])(vm, instr);
+        opcode = opcode >> 2;
+        return (opcode_lookup[opcode])(vm, instr);
     }
 }
 
-void lui(RISCVM* vm, uint32_t instr)
+int lui(RISCVM* vm, uint32_t instr)
 {
     printf("LUI called\n");
+    return 0;
 }
 
-void auipc(RISCVM* vm, uint32_t instr)
+int auipc(RISCVM* vm, uint32_t instr)
 {
     printf("AUIPC called\n");
+    return 0;
 }
 
-void jal(RISCVM* vm, uint32_t instr)
+int jal(RISCVM* vm, uint32_t instr)
 {
     printf("JAL called\n");
+    return 0;
 }
 
-void jalr(RISCVM* vm, uint32_t instr)
+int jalr(RISCVM* vm, uint32_t instr)
 {
     printf("JALR called\n");
+    return 0;
 }
 
-void illegal_opcode(RISCVM* vm, uint32_t instr)
+int illegal_opcode(RISCVM* vm, uint32_t instr)
 {
     printf("Error: illegal opcode\nPC: %x\nInstruction: %x\n", vm->registers[xPC], instr);
-    free_vm(*vm);
-    vm = NULL;
+    return 1;
 }
