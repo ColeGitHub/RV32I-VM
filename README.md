@@ -5,8 +5,8 @@ It's currently in the works but the idea is to pass a program assembled into RIS
 
 ### Todos
  
- - [] Implement branch instructions
- - [] Implement arithmetic instructions (R-type and I-type)
- - [] Implement system instructions (fence, ecall/ebreak, atomics)
- - [] Implement load/store instructions
- - [] Implement lui, auipc, jal, jalr
+ - [ ] Implement branch instructions
+ - [ ] Implement arithmetic instructions (R-type and I-type)
+ - [ ] Implement system instructions (fence, ecall/ebreak, atomics)
+ - [ ] Implement load/store instructions
+ - [ ] Implement lui, auipc, jal, jalr
