@@ -157,10 +157,12 @@ int mem_write_byte( RISCVM* vm, uint32_t address, int reg )
 
 void reg_write(RISCVM* vm, int reg, uint32_t value)
 {
-    if (reg > 0 && reg < REGISTER_COUNT) {
+    if (reg >= REGISTER_COUNT) {
+        printf("Error: Illegal write to register x%d. Skipping write operation...\n", reg);
+    } else if (reg > 0) {
         vm->registers[reg] = value;
     } else {
-        printf("Error: Illegal write to register x%d. Skipping write operation...\n", reg);
+        printf("Register write discarded.\n");
     }
 }
 

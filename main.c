@@ -31,24 +31,6 @@ int main()
     init_opcode_lookup();
     
     uint32_t instr_test[43] = {
-        0x37, // LUI
-        0x17, // AUIPC
-        0x6F, // JAL
-        0x67, // JALR
-        0x0063, // BEQ
-        0x1063, // BNE
-        0x4063, // BLT
-        0x5063, // BGE
-        0x6063, // BLTU
-        0x7063, // BGEU
-        0x0003, // LB
-        0x1003, // LH
-        0x2003, // LW
-        0x4003, // LBU
-        0x5003, // LHU
-        0x0023, // SB
-        0x1023, // SH
-        0x2023, // SW
         0x0013, // ADDI
         0x2013, // SLTI
         0x3013, // SLTIU
@@ -65,15 +47,6 @@ int main()
         0x7033, // AND
         0x1033, // SLL
         0x5033, // SR
-        0x000F, // FENCE
-        0x100F, // FENCEI
-        0x0073, // E INSTR (ECALL/EBREAK)
-        0x1073, // CSRRW
-        0x2073, // CSRRS
-        0x3073, // CSRRC
-        0x5073, // CSRRWI
-        0x6073, // CSRRSI
-        0x7073  // CSRRCI
     };
 
     for (int i = 0; i < 43; i++) {
